@@ -1,5 +1,9 @@
 package com.example.chapter3.homework;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -11,10 +15,31 @@ import android.os.Bundle;
  */
 public class Ch3Ex3Activity extends AppCompatActivity {
 
+    private static final int PAGE_COUNT = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ch3ex3);
+        ViewPager pager = findViewById(R.id.view_pager);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
+        pager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int i) {
+                return new PlaceholderFragment();//返回列表fragment 应该可以根据i的不同显示不同的list
+            }
+
+            @Override
+            public int getCount() {
+                return PAGE_COUNT;
+            }
+            @Override
+            public CharSequence getPageTitle(int position)
+            {
+                return "list" + position;
+            }
+        });
+        tabLayout.setupWithViewPager(pager);//应该就是绑定pager
 
 
 
